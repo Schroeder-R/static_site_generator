@@ -37,12 +37,3 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
                                 else:
                                         new_nodes.append(TextNode(text, text_type))
         return new_nodes
-
-# node = TextNode("This is text with a `code block` word", TextType.TEXT)
-# node = TextNode("This is text with a `code block` word", TextType.TEXT)
-# node = TextNode("This is text with an unmatched `code block", TextType.TEXT)
-# node = TextNode("This is already bold", TextType.BOLD)
-# print(f"node: {node}")
-# new_nodes = split_nodes_delimiter([node], "`", TextType.CODE)
-# for node in new_nodes:
-        # print(node)
