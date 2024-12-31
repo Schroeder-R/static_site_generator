@@ -4,7 +4,7 @@ from textnode import TextNode, TextType
 from htmlnode import HTMLNode
 from leafnode import LeafNode
 from parentnode import ParentNode
-from text_node_converter import text_node_to_html_node
+from utils import text_node_to_html_node
 
 class TestTextNodeToHTMLNode(unittest.TestCase):
 
