@@ -1,30 +1,29 @@
 import os
 import shutil
 
-def copy_contents(source, destination):
-    if os.path.exists(destination):
-        shutil.rmtree(destination) # Delete all contents of the destination directory
-    os.mkdir(destination)
+from copystatic import copy_files_recursive
+from gencontent import generate_page
 
-    for item in os.listdir(source):
-        source_item = os.path.join(source, item)
-        destination_item = os.path.join(destination, item)
+dir_path_static = "./static"
+dir_path_public = "./public"
+dir_path_content = "./content"
+template_path = "./template.html"
 
-        if os.path.isdir(source_item):
-            # Recursive call for directories
-            copy_contents(source_item, destination_item)
-        else:
-            # Copy files
-            shutil.copy(source_item, destination_item)
-            print(f"Copied file: {source_item} to {destination_item}")
 
 def main():
-    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    source_dir = os.path.join(root_dir, "static")
-    destination_dir = os.path.join(root_dir, "public")
-    copy_contents(source_dir, destination_dir)
-    
-if __name__ == "__main__":
-    main()
+    print("Deleting public directory...")
+    if os.path.exists(dir_path_public):
+        shutil.rmtree(dir_path_public)
+
+    print("Copying static files to public directory...")
+    copy_files_recursive(dir_path_static, dir_path_public)
+
+    print("Generating page...")
+    generate_page(
+        os.path.join(dir_path_content, "index.md"),
+        template_path,
+        os.path.join(dir_path_public, "index.html"),
+    )
 
 
+main()

@@ -1,5 +1,6 @@
-from parentnode import ParentNode
-from utils import *
+from htmlnode import ParentNode
+from inline_markdown import text_to_textnodes
+from textnode import text_node_to_html_node
 
 block_type_paragraph = "paragraph"
 block_type_heading = "heading"
@@ -8,15 +9,17 @@ block_type_quote = "quote"
 block_type_olist = "ordered_list"
 block_type_ulist = "unordered_list"
 
+
 def markdown_to_blocks(markdown):
     blocks = markdown.split("\n\n")
-    filter_blocks = []
+    filtered_blocks = []
     for block in blocks:
         if block == "":
             continue
         block = block.strip()
-        filter_blocks.append(block)
-    return filter_blocks
+        filtered_blocks.append(block)
+    return filtered_blocks
+
 
 def block_to_block_type(block):
     lines = block.split("\n")
@@ -48,6 +51,7 @@ def block_to_block_type(block):
             i += 1
         return block_type_olist
     return block_type_paragraph
+
 
 def markdown_to_html_node(markdown):
     blocks = markdown_to_blocks(markdown)
