@@ -25,6 +25,14 @@ def generate_page(from_path, template_path, dest_path):
     to_file = open(dest_path, "w")
     to_file.write(template)
 
+def generate_pages_recursively(dir_path_content, template_path, dest_dir_path):
+    for root, _, files in os.walk(dir_path_content):
+        for file_name in files:
+            if file_name.endswith(".md"):
+                from_path = os.path.join(root, file_name)
+                relative_path = os.path.relpath(from_path, dir_path_content)
+                dest_path = os.path.join(dest_dir_path, relative_path.replace(".md", ".html"))
+                generate_page(from_path, template_path, dest_path)
 
 def extract_title(md):
     lines = md.split("\n")
